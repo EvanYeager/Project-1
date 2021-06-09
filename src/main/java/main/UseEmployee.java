@@ -1,8 +1,5 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class UseEmployee {
@@ -16,7 +13,7 @@ public class UseEmployee {
 		System.out.println("Enter the number to input a command.\n");
 		do 
 		{
-			empService.displayMenu();
+			displayMenu();
 			
 			if (empService.hasNext())
 			{
@@ -34,5 +31,14 @@ public class UseEmployee {
 		System.out.println("Goodbye");
 	}
 
+	private static void displayMenu() 
+	{
+		System.out.println("\n1. List all employees");
+		System.out.println("2. Display an employee's yearly salary");
+		System.out.println("3. Display an employee's details");
+		System.out.println("4. Modify an employee's details");
+		System.out.println("5. Delete an employee");
+		System.out.println("6. Quit the program");
+	}
 	
 }

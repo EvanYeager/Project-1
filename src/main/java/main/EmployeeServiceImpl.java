@@ -17,17 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		};
 	Scanner scan = new Scanner(System.in);
 	private static final Logger LOGGER = Logger.getLogger(EmployeeServiceImpl.class.getName());
-	
-		
-	public void displayMenu() 
-	{
-		System.out.println("\n1. List all employees");
-		System.out.println("2. Display an employee's yearly salary");
-		System.out.println("3. Display an employee's details");
-		System.out.println("4. Modify an employee's details");
-		System.out.println("5. Delete an employee");
-		System.out.println("6. Quit the program");
-	}
+
 
 	public int getInputNumber() throws InputMismatchException
 	{
@@ -36,37 +26,45 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	public void performCommand(int choice)
 	{
-		switch (choice)
+		try
 		{
-		default:
-			LOGGER.warning("Invalid number entered. Please try again.");
-			return;
-		case 1:
-			listEmployees();
-			break;
-		case 2:
-			displaySalary(getEmployee());
-			break;
-		case 3: 
-			displayDetails(getEmployee());
-			break;
-		case 4:
-			modifyDetails(getEmployee());
-			break;
-		case 5:
-			deleteEmployee(getEmployee());
-			break;
-		case 6:
-			return; // continues the loop; since choice == 6, the program will exit.
+			switch (choice)
+			{
+			default:
+				LOGGER.warning("Invalid number entered. Please try again.");
+				return;
+			case 1:
+				listEmployees();
+				break;
+			case 2:
+				displaySalary(getEmployee());
+				break;
+			case 3: 
+				displayDetails(getEmployee());
+				break;
+			case 4:
+				modifyDetails(getEmployee());
+				break;
+			case 5:
+				deleteEmployee(getEmployee());
+				break;
+			case 6:
+				return; // continues the loop; since choice == 6, the program will exit.
+			}
+		} catch (EmployeeNotFoundException e)
+		{
+			LOGGER.warning(e.toString());
 		}
 	}
 
-	public Employee getEmployee()
+	public Employee getEmployee() throws EmployeeNotFoundException
 	{
 		System.out.println("Enter the employee number to search for");
-		Employee emp = findByEmployeeNo(getInputNumber()); // finds employee by the employee number that user enters
+		int num = getInputNumber();
+		Employee emp = findByEmployeeNo(num); // finds employee by the employee number that user enters
+		
 		if (emp != null) return emp;
-		else return null;
+		else throw new EmployeeNotFoundException("Employee with number " + num + " not found.");
 	}
 
 	public void listEmployees()
