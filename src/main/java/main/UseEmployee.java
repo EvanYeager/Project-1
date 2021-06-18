@@ -13,11 +13,11 @@ public class UseEmployee {
 		System.out.println("Enter the number to input a command.\n");
 		do 
 		{
-			displayMenu();
+			displayMenu(); // display menu options to user
 			
-			if (empService.hasNext())
+			if (empService.hasNext()) // if user enters a new input
 			{
-				main.choice = empService.getInputNumber();					
+				main.choice = empService.getInputNumber(); // get user choice		
 			}
 			else
 			{
@@ -33,7 +33,8 @@ public class UseEmployee {
 
 	private static void displayMenu() 
 	{
-		System.out.println("\n1. List all employees");
+		System.out.println();
+		System.out.println("1. List all employees");
 		System.out.println("2. Display an employee's yearly salary");
 		System.out.println("3. Display an employee's details");
 		System.out.println("4. Modify an employee's details");

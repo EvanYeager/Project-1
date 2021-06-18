@@ -1,10 +1,10 @@
 package main;
 
 public class Employee {
-	int empNo;
-	String empName;
-	int salary;
-	Address address;
+	private int empNo;
+	private String empName;
+	private int salary;
+	private Address address;
 	
 	public Employee(int empNo, String empName, int salary, Address add)
 	{
@@ -20,7 +20,7 @@ public class Employee {
 	public void setEmpNo(int empNo) {
 		this.empNo = empNo;
 	}
-	public String getEmpName() {
+	public String getName() {
 		return empName;
 	}
 	public void setEmpName(String empName) {
@@ -30,7 +30,7 @@ public class Employee {
 		return salary;
 	}
 	public void setSalary(int salary) {
-		this.salary = salary;
+		this.salary = salary >= 0 ? salary : 0;
 	}
 	public Address getAddress() {
 		return address;
@@ -42,6 +42,6 @@ public class Employee {
 	@Override
 	public String toString()
 	{
-		return String.format("\nEmployee\n--------------------------\nNo = %d\tName = %s\tSalary = %d\tAddress = %s", getEmpNo(), getEmpName(), getSalary(), getAddress().toString());
+		return String.format("\nEmployee\n--------------------------\nNo = %d\tName = %s\tSalary = %d\tAddress = %s", getEmpNo(), getName(), getSalary(), getAddress().toString());
 	}
 }

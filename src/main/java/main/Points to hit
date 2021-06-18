@@ -1,0 +1,15 @@
+
+
+
+
+
+
+*my implementation of DAO (EmployeeServiceImpl)
+*custom exceptions (EmployeeNotFoundException)
+*streams (display employees, find employee)
+*lambdas (find employee)
+*logging
+*JUnit testing
+
+
+
