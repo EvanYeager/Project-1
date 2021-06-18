@@ -50,11 +50,9 @@ public class EmployeeServiceTest {
 	@Test
 	void testModifyDetails()
 	{
-		System.out.println("Enter: 5, 'String1', 'String2'");
+		System.out.println("Change the salary to '5'");
 		empService.modifyDetails(EmployeeServiceImpl.employees.get(0));
 		assertEquals(EmployeeServiceImpl.employees.get(0).getSalary(), 5);
-		assertEquals(EmployeeServiceImpl.employees.get(0).getAddress().getCity(), "String1");
-		assertEquals(EmployeeServiceImpl.employees.get(0).getAddress().getState(), "String2");
 	}
 	
 	

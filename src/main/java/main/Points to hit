@@ -8,6 +8,7 @@
 *custom exceptions (EmployeeNotFoundException)
 *streams (display employees, find employee)
 *lambdas (find employee)
+*ternary (modifydetails)
 *logging
 *JUnit testing
 

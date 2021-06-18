@@ -2,7 +2,6 @@ package main;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class EmployeeServiceImpl implements EmployeeService{
@@ -15,62 +14,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 				add(new Employee(4, "Kenji", 3_750, new Address("Tampa", "Florida")));
 			}
 		};
-	Scanner scan = new Scanner(System.in);
 	private static final Logger LOGGER = Logger.getLogger(EmployeeServiceImpl.class.getName());
 
-
-	public int getInputNumber() throws InputMismatchException
-	{
-		return scan.nextInt();
-	}
-
-	public void performCommand(int choice)
-	{
-		try
-		{
-			switch (choice)
-			{
-			default:
-				LOGGER.warning("Invalid number entered. Please try again.");
-				return;
-			case 1:
-				listEmployees();
-				break;
-			case 2:
-				displaySalary(getEmployee());
-				break;
-			case 3: 
-				displayDetails(getEmployee());
-				break;
-			case 4:
-				modifyDetails(getEmployee());
-				break;
-			case 5:
-				deleteEmployee(getEmployee());
-				break;
-			case 6:
-				return; // continues the loop; since choice == 6, the program will exit.
-			}
-		} catch (EmployeeNotFoundException e)
-		{
-			LOGGER.warning(e.toString());
-		}
-	}
-
-	// finds employee by the employee number that user enters
-	public Employee getEmployee() throws EmployeeNotFoundException
-	{
-		System.out.println("Enter the employee number to search for");
-		int num = getInputNumber();
-		
-		try
-		{
-			return findByEmployeeNo(num); 
-		} catch (EmployeeNotFoundException e)
-		{
-			throw e; // pass on the exception from findByEmployeeNum() to the caller of this function
-		}
-	}
 
 	public void listEmployees()
 	{
@@ -89,31 +34,38 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	public void modifyDetails(Employee emp)
 	{
-		System.out.println("Enter the employee's monthly SALARY.");
-		try
+		System.out.println("--------Choose what to change----------");
+		System.out.println("1. Salary");
+		System.out.println("2. City");
+		System.out.println("3. State");
+		int choice = UseEmployee.getInputNumber();
+		switch(choice)
 		{
-			emp.setSalary(getInputNumber());			
-		} catch (InputMismatchException e)
-		{
-			LOGGER.warning("You need to input a number for the employee's monthly salary.");
+		default:
+			LOGGER.warning("You need to enter a number 1-3. Please try again.");
+			return; // exit entire method
+		case 1:
+			System.out.println("Enter the employee's monthly SALARY");
+			try
+			{
+				emp.setSalary(UseEmployee.getInputNumber());
+			} catch (InputMismatchException e)
+			{
+				LOGGER.warning("Incorrect input entered.");
+				return;
+			}
+			break;
+		case 2:
+			System.out.println("Enter the employee's CITY of residence.");
+			emp.getAddress().setCity(UseEmployee.getInputString());
+			break;
+		case 3:
+			System.out.println("Enter the employee's STATE of residence.");
+			emp.getAddress().setState(UseEmployee.getInputString());
+			break;
 		}
-		
-		System.out.println("Enter the employee's CITY of residence.");
-		emp.getAddress().setCity(scan.nextLine());
-		System.out.println("Enter the employee's STATE of residence.");
-		emp.getAddress().setState(scan.nextLine());
-		
-		LOGGER.info(emp.getName() + "'s details changed.");
-	}
-	
-	public void nextLine()
-	{
-		scan.next(); 
-	}
-	
-	public boolean hasNext()
-	{
-		return scan.hasNextInt();
+		String detailChanged = choice == 1 ? "salary" : choice == 2 ? "city" : "state";
+		LOGGER.info(emp.getName() + "'s " + detailChanged + " changed.");
 	}
 
 	@Override
